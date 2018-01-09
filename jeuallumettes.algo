@@ -1,0 +1,59 @@
+ALGORITHME jeu_allumettes
+//BUT : recréer le jeu des allumettes en algo
+//PRINCIPE : boucle repeter pour relancer la demande de tours jusqu'a ce qu'il ne reste
+qu'une seule allumette, avec verification de la validité du tour.
+//ENTREE : tour du joueur
+//SORTIE : reste des allumettes
+
+CONST
+	total=21 : ENTIER
+
+VAR 
+	tourj1, tourj2, reste : ENTIER
+
+
+DEBUT
+
+	//initialisation
+	tourj1 <- 0
+	tourj2<- 0
+	reste <- total
+
+	//relance de tours jusqu'a ce qu'il ne reste qu'une allumette
+	REPETER
+
+		ECRIRE "Voici le jeu des allumettes : à tour de rôle, tirez 1,2 ou 3 allumettes du tas. Il y à 21 allumettes au total, et celui qui tire la dernière à perdu. Bon jeu."
+
+		ECRIRE "Le premier joueur joue. Veuillez entrer le nombre d'allumettes tirées."
+		LIRE tourj1
+		//ex: tourj1 <- 2
+
+		//verification de la validité du tour
+		TANTQUE tourj1<1 OU tourj1>21 FAIRE
+			ECRIRE "Erreur : tour invalide. Vous devez tirer 1,2 ou 3 allumettes, ni plus, ni moins. Veuillez entrer le nombre d'allumettes tirées."
+			LIRE tourj1
+		FINTANTQUE
+
+		reste <- reste - tourj1
+		//ex: reste <- 19
+
+		ECRIRE "Le second joueur joue. Veuillez entrer le nombre d'allumettes tirées."
+		LIRE tourj2
+		//ex: tourj2 <- 1
+
+		//verification de la validité du tour
+		TANTQUE tourj2<1 OU tourj2>21 FAIRE
+			ECRIRE "Erreur : tour invalide. Vous devez tirer 1,2 ou 3 allumettes, ni plus, ni moins. Veuillez entrer le nombre d'allumettes tirées."
+			LIRE tourj2
+		FINTANTQUE
+
+		reste <- reste - tourj2
+		//ex: reste <- 18
+
+	JUSQU'A reste = 1
+
+	//fin de la partie
+	SI reste=1 ALORS
+		ECRIRE "le dernier joueur à avoir tiré remporte la victoire. Félicitations !"
+
+FIN
