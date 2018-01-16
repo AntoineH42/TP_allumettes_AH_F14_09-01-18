@@ -5,18 +5,21 @@ ALGORITHME jeu_allumettes_vs_cpurandom
 //SORTIE : reste des allumettes
 
 CONST
-	total=21 : ENTIER
+	total<-21 : ENTIER
+	piochemin<-1 : ENTIER
+	piochemax<-3 : ENTIER
 
 VAR 
-	tourj, tourcpu, reste : ENTIER
-
+	pioche, tourcpu, reste : ENTIER
+	fin : BOOLEEN
 
 DEBUT
 
 	//initialisation
-	tourj <- 0
-	tourcpu<- 0
-	reste <- total
+	tourj<-0
+	tourcpu<-0
+	reste<-total
+	fin<-FALSE
 
 	//relance de tours jusqu'a ce qu'il ne reste qu'une allumette
 	REPETER
@@ -28,7 +31,7 @@ DEBUT
 		//ex: tourj <- 2
 
 		//verification de la validité du tour
-		TANTQUE tourj<1 OU tourj>21 FAIRE
+		TANTQUE tourj<1 OU tourj>3 FAIRE
 			ECRIRE "Erreur : tour invalide. Vous devez tirer 1,2 ou 3 allumettes, ni plus, ni moins. Veuillez entrer le nombre d'allumettes tirées."
 			LIRE tourj
 		FINTANTQUE
@@ -42,10 +45,13 @@ DEBUT
 
 		reste <- reste - tourcpu
 
-	JUSQU'A reste = 1
+		SI reste=1 ALORS
+			fin <-TRUE
+
+	JUSQU'A fin=TRUE
 
 	//fin de la partie
-	SI reste=1 ALORS
+	SI fin=TRUE ALORS
 		ECRIRE "le dernier joueur à avoir tiré remporte la victoire. Félicitations !"
 
 FIN

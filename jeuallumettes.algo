@@ -6,54 +6,54 @@ qu'une seule allumette, avec verification de la validité du tour.
 //SORTIE : reste des allumettes
 
 CONST
-	total=21 : ENTIER
+	total<-21 : ENTIER
+	piochemin<-1 : ENTIER
+	piochemax<-3 : ENTIER
 
-VAR 
-	tourj1, tourj2, reste : ENTIER
+VAR
+	pioche, reste : ENTIER
+	fin : BOOLEEN
 
 
 DEBUT
 
 	//initialisation
-	tourj1 <- 0
-	tourj2<- 0
 	reste <- total
+	pioche <- 0
+	fin <- FALSE
+	
+
+	ECRIRE "Voici le jeu des allumettes : à tour de rôle, tirez 1,2 ou 3 allumettes du tas. Il y à 21 allumettes au total, et celui qui tire la dernière à perdu. Bon jeu."
 
 	//relance de tours jusqu'a ce qu'il ne reste qu'une allumette
 	REPETER
 
-		ECRIRE "Voici le jeu des allumettes : à tour de rôle, tirez 1,2 ou 3 allumettes du tas. Il y à 21 allumettes au total, et celui qui tire la dernière à perdu. Bon jeu."
+		ECRIRE "Combien d'allumettes tirez vous ?"
+		LIRE pioche
 
-		ECRIRE "Le premier joueur joue. Veuillez entrer le nombre d'allumettes tirées."
-		LIRE tourj1
-		//ex: tourj1 <- 2
+	//verification de la validité de la pioche
+		//si tour valide, alors :
+		SI((pioche>=piochemin) ET (pioche<=piochemax))ALORS
+			SI((pioche=piochemax) ET (reste=piochemax) OU (pioche=piochemax) ET (reste=piochemax-1)OU(pioche=piochemax-1) ET (reste=piochemax-1))ALORS	
+				ECRIRE("il reste "&reste&" allumettes")
+				ECRIRE("vous ne pouvez pas prendre "&pioche&" allumettes")				
+			SINON
+				reste<-reste-pioche
+				ECRIRE("il reste "&reste&" allumettes")			
+			FINSI
+		//si tour invalide, alors :		
+		SINON
+			ECRIRE("Erreur : tour invalide. Vous devez tirer 1,2 ou 3 allumettes, ni plus, ni moins.")
+			ECRIRE("Veuillez recommencer")
+		FINSI
 
-		//verification de la validité du tour
-		TANTQUE tourj1<1 OU tourj1>21 FAIRE
-			ECRIRE "Erreur : tour invalide. Vous devez tirer 1,2 ou 3 allumettes, ni plus, ni moins. Veuillez entrer le nombre d'allumettes tirées."
-			LIRE tourj1
-		FINTANTQUE
-
-		reste <- reste - tourj1
-		//ex: reste <- 19
-
-		ECRIRE "Le second joueur joue. Veuillez entrer le nombre d'allumettes tirées."
-		LIRE tourj2
-		//ex: tourj2 <- 1
-
-		//verification de la validité du tour
-		TANTQUE tourj2<1 OU tourj2>21 FAIRE
-			ECRIRE "Erreur : tour invalide. Vous devez tirer 1,2 ou 3 allumettes, ni plus, ni moins. Veuillez entrer le nombre d'allumettes tirées."
-			LIRE tourj2
-		FINTANTQUE
-
-		reste <- reste - tourj2
-		//ex: reste <- 18
-
-	JUSQU'A reste = 1
+		SI reste=1 ALORS
+			fin<-TRUE
+			
+	JUSQU'A fin=TRUE
 
 	//fin de la partie
-	SI reste=1 ALORS
-		ECRIRE "le dernier joueur à avoir tiré remporte la victoire. Félicitations !"
+	SI fin=TRUE ALORS
+		ECRIRE "Le dernier joueur à avoir tiré remporte la victoire. Félicitations !"
 
 FIN
