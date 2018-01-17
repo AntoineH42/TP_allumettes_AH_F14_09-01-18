@@ -1,0 +1,66 @@
+ALGORITHME jeu_allumettes_vs_cpurandom
+//BUT : recréer le jeu des allumettes en algo (version contre l'ordinateur qui joue aléatoirement)
+//PRINCIPE : 
+//ENTREE : tour du joueur
+//SORTIE : reste des allumettes
+
+CONST
+	total<-21 : ENTIER
+	piochemin<-1 : ENTIER
+	piochemax<-3 : ENTIER
+
+VAR
+	pioche, reste : ENTIER
+	fin : BOOLEEN
+
+
+DEBUT
+
+	//initialisation
+	reste <- total
+	pioche <- 0
+	fin <- FALSE
+	
+
+	ECRIRE "Voici le jeu des allumettes : à tour de rôle, tirez 1,2 ou 3 allumettes du tas. Il y à 21 allumettes au total, et celui qui tire la dernière à perdu. Bon jeu."
+
+	//relance de tours jusqu'a ce qu'il ne reste qu'une allumette
+	REPETER
+
+		ECRIRE "Combien d'allumettes tirez vous ?"
+		LIRE pioche
+
+	//verification de la validité de la pioche
+		//si tour valide, alors :
+		SI((pioche>=piochemin) ET (pioche<=piochemax))ALORS
+			SI((pioche=piochemax) ET (reste=piochemax) OU (pioche=piochemax) ET (reste=piochemax-1)OU(pioche=piochemax-1) ET (reste=piochemax-1))ALORS	
+				ECRIRE("Il reste "&reste&" allumettes")
+				ECRIRE("Vous ne pouvez pas prendre "&pioche&" allumettes")				
+			SINON
+				reste<-reste-pioche
+				ECRIRE("Il reste "&reste&" allumettes")	
+				//tour de l'ordinateur (pioche aléatoire)
+				ECRIRE("L'ordinateur joue...")
+				pioche <- ALEATOIRE entre 0 ET 3
+				ECRIRE("L'ordinateur tire : "&pioche&" allumette(s).")
+				reste<-reste-pioche
+				ECRIRE("Il reste "&reste&" allumettes")
+			FINSI
+		//si tour invalide, alors :		
+		SINON
+			ECRIRE("Erreur : tour invalide. Vous devez tirer 1,2 ou 3 allumettes, ni plus, ni moins.")
+			ECRIRE("Veuillez recommencer")
+		FINSI
+
+		
+
+		SI reste=1 ALORS
+			fin<-TRUE
+			
+	JUSQU'A fin=TRUE
+
+	//fin de la partie
+	SI fin=TRUE ALORS
+		ECRIRE "Le dernier joueur à avoir tiré remporte la victoire. Félicitations !"
+
+FIN
